@@ -121,6 +121,63 @@ class _PaymntPageState extends State<PaymntPage> {
                   )
               ),
             ),
+            Container(
+              padding: EdgeInsets.all(6),
+              child: Row(children: <Widget>[
+               Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/rbi.png'),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  height: data.size.width * .15,
+                  width: data.size.width * .15,
+                ),
+              ),
+               Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/mc.png'),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  height: data.size.width * .15,
+                  width: data.size.width * .2,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/pci.png'),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  height: data.size.width * .2,
+                  width: data.size.width * .2,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/visa.png'),
+                      fit: BoxFit.fill,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  height: data.size.width * .15,
+                  width: data.size.width * .2,
+                ),
+              ),
+            ],),)
           ],),
         ),
       ),

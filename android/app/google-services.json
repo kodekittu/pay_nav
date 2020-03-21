@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "728283533796",
+    "firebase_url": "https://paynav-94f24.firebaseio.com",
+    "project_id": "paynav-94f24",
+    "storage_bucket": "paynav-94f24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728283533796:android:9c583bafadb9d2c9b137f1",
+        "android_client_info": {
+          "package_name": "com.kittu.paynav"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728283533796-qqidtkgmoabeto92e1rdpb4hm7fc45gt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kittu.paynav",
+            "certificate_hash": "ad2ffc8dab83b0db21625f3f02e107f66400ea77"
+          }
+        },
+        {
+          "client_id": "728283533796-el653eps6us1qkj3p8gjk68oo7qe9lc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdkeq_4OYeFm9MTjTFfSEHd46u4bszVi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728283533796-el653eps6us1qkj3p8gjk68oo7qe9lc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
