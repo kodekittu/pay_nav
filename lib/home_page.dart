@@ -1,9 +1,49 @@
+import 'dart:io';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:http/http.dart'  as http;
+//import 'package:flutter/rendering.dart';
+//import 'package:http/http.dart'  as http;
 import 'package:paynav/router.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  File image1;
+  File image2;
+  File image3;
+
+  Future getImage() async {
+    var tempImage1 = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image1 = tempImage1;
+    });
+  }
+
+  Future getImage2() async {
+    var tempImage2 = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image2 = tempImage2;
+    });
+  }
+
+  Future getImage3() async {
+    var tempImage3 = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      image3 = tempImage3;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData data = MediaQuery.of(context);
@@ -12,6 +52,7 @@ class HomePage extends StatelessWidget {
         title: Text('PayNav'),
       ),
       body: Container(
+        color: Colors.black12,
         padding: EdgeInsets.all(6),
         child: SingleChildScrollView(padding: EdgeInsets.all(4),
           child: Column(
@@ -25,9 +66,17 @@ class HomePage extends StatelessWidget {
               ),
             ),
             Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
-            child: TextField(
+            child: TextFormField(
                 decoration: InputDecoration(
                 labelText: "First Name", hasFloatingPlaceholder: true,
+                  fillColor: Colors.white,
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1.5),
+                  ),
               ),
             ),
             ),
@@ -60,20 +109,26 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: data.size.width * 0.25,
-                width: data.size.height * 0.2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey, width: 2)
+              child: InkWell(
+                child: Container(
+                  height: data.size.width * 0.25,
+                  width: data.size.height * 0.2,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.grey, width: 2)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Center(child:
+                    image1 == null
+                        ? Column(children: <Widget>[
+                        Icon(Icons.add_circle_outline),
+                        Text('UPLOAD PHOTO')
+                      ],
+                    ) : enableUpload(),),
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: Center(child: Column(children: <Widget>[
-                    Icon(Icons.add_circle_outline),
-                    Text('UPLOAD PHOTO')
-                  ],),),
-                ),
+                onTap: getImage,
               ),
             ),
             Padding(
@@ -97,20 +152,27 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          height: data.size.width * 0.25,
-                          width: data.size.height * 0.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 2)
+                        InkWell(
+                          child: Container(
+                            height: data.size.width * 0.25,
+                            width: data.size.height * 0.2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey, width: 2)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: Center(child: image2 == null ?
+                              Column(
+                                children: <Widget>[
+                                  Icon(Icons.add_circle_outline),
+                                  Text('UPLOAD PHOTO')
+                                ],
+                              )
+                                  : enableUpload2(),),
+                            ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: Center(child: Column(children: <Widget>[
-                              Icon(Icons.add_circle_outline),
-                              Text('UPLOAD PHOTO')
-                            ],),),
-                          ),
+                          onTap: getImage2,
                         ),
                         SizedBox(height: data.size.height *0.01,),
                         Text('FRONT'),
@@ -122,20 +184,25 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          height: data.size.width * 0.25,
-                          width: data.size.height * 0.2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.grey, width: 2)
+                        InkWell(
+                          child: Container(
+                            height: data.size.width * 0.25,
+                            width: data.size.height * 0.2,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey, width: 2)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: Center(child: image3 == null ? Column(
+                                children: <Widget>[
+                                  Icon(Icons.add_circle_outline),
+                                  Text('UPLOAD PHOTO')
+                                ],
+                              ) : enableUpload3(),),
+                            ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: Center(child: Column(children: <Widget>[
-                              Icon(Icons.add_circle_outline),
-                              Text('UPLOAD PHOTO')
-                            ],),),
-                          ),
+                          onTap: getImage3,
                         ),
                         SizedBox(height: data.size.height *0.01,),
                         Text('BACK'),
@@ -157,7 +224,11 @@ class HomePage extends StatelessWidget {
                     child: Text("SUBMIT".toUpperCase(),
                       style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () => Navigator.pushNamed(context, paymntRoute),
+                    onPressed: () // => Navigator.pushNamed(context, paymntRoute),
+                      {
+                        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('img.png');
+                        final StorageUploadTask task = firebaseStorageRef.putFile(image1);
+                      },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
                     ),
@@ -170,4 +241,18 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+  Widget enableUpload(){
+    return Container(child: Image.file(image1),
+    );
+  }
+  Widget enableUpload2(){
+    return Container(child: Image.file(image2),
+    );
+  }
+  Widget enableUpload3(){
+    return Container(child: Image.file(image3),
+    );
+  }
 }
+
