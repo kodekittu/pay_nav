@@ -27,7 +27,13 @@ class _HomePageState extends State<HomePage> {
   Future <void> _shoeAlert (BuildContext context){
     return showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Please Enter all Details!'),
+        content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Please Enter all Details!', style: TextStyle(fontWeight: FontWeight.w800, color: Colors.redAccent),),
+              ],
+            )
+        ),
       );
     });
   }
@@ -42,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               child: Text ("Gallery"),
               onTap: _getImage1,
             ),
-            Padding(padding: EdgeInsets.all(6)),
+            Divider(),
             GestureDetector(
               child: Text ("Camara"),
               onTap: _openCamara1,
@@ -62,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               child: Text ("Gallery"),
               onTap: _getImage2,
             ),
-            Padding(padding: EdgeInsets.all(6)),
+            Divider(),
             GestureDetector(
               child: Text ("Camara"),
               onTap: _openCamara2,
@@ -82,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               child: Text ("Gallery"),
               onTap: _getImage3,
             ),
-            Padding(padding: EdgeInsets.all(6)),
+            Divider(),
             GestureDetector(
               child: Text ("Camara"),
               onTap: _openCamara3,
@@ -152,7 +158,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('PayNav'),
       ),
       body: Container(
-        color: Colors.black12,
+        color: Colors.white10,
         padding: EdgeInsets.all(6),
         child: SingleChildScrollView(padding: EdgeInsets.all(4),
           child: Column(
@@ -326,17 +332,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () // => Navigator.pushNamed(context, paymntRoute),
                       {
+                        if(image1 != null && image3 != null && image2 != null ){
+                          Navigator.pushNamed(context, paymntRoute);
+                        }else{
+                          _shoeAlert(context);
+                        }
                         final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('pan.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
                         final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('aadf.png');
                         final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
                         final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('aadb.png');
                         final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
-                        if(image1 != null && image3 != null && image2 != null ){
-                          Navigator.pushNamed(context, paymntRoute);
-                        }else{
-                          _shoeAlert(context);
-                        }
                       },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
