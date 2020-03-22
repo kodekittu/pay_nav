@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:paynav/auth.dart';
 
 import 'package:paynav/router.dart';
 
@@ -14,6 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  final AuthService _auth = AuthService();
 
   File image1;
   File image2;
@@ -332,17 +335,22 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () // => Navigator.pushNamed(context, paymntRoute),
                       {
-                        if(image1 != null && image3 != null && image2 != null ){
-                          Navigator.pushNamed(context, paymntRoute);
-                        }else{
-                          _shoeAlert(context);
-                        }
                         final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('pan.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
                         final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('aadf.png');
                         final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
                         final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('aadb.png');
                         final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
+                        dynamic result = _auth.signInAnon();
+
+                        print(result);
+                        if(result == null)
+                          print("can't sign in");
+                        if(image1 != null && image3 != null && image2 != null ){
+                          Navigator.pushNamed(context, paymntRoute);
+                        }else{
+                          _shoeAlert(context);
+                        }
                       },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
@@ -371,4 +379,5 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
+
 
