@@ -18,11 +18,24 @@ class _HomePageState extends State<HomePage> {
   File image1;
   File image2;
   File image3;
+  String _first;
+  String _middle;
+  String _sur;
+  int _panNo;
+  int _aadNo;
+
+  Future <void> _shoeAlert (BuildContext context){
+    return showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Please Enter all Details!'),
+      );
+    });
+  }
 
   Future <void> _showChoiceDialog1 (BuildContext context) {
     return showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Make a Choice!"),
+        title: Text("Make a Choice!",style: TextStyle(fontWeight: FontWeight.bold)),
         content: SingleChildScrollView(
           child: ListBody(children: <Widget>[
             GestureDetector(
@@ -42,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   Future <void> _showChoiceDialog2 (BuildContext context) {
     return showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Make a Choice!"),
+        title: Text("Make a Choice!",style: TextStyle(fontWeight: FontWeight.bold)),
         content: SingleChildScrollView(
           child: ListBody(children: <Widget>[
             GestureDetector(
@@ -62,7 +75,7 @@ class _HomePageState extends State<HomePage> {
   Future <void> _showChoiceDialog3 (BuildContext context) {
     return showDialog(context: context, builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Make a Choice!"),
+        title: Text("Make a Choice!",style: TextStyle(fontWeight: FontWeight.bold),),
         content: SingleChildScrollView(
           child: ListBody(children: <Widget>[
             GestureDetector(
@@ -156,7 +169,7 @@ class _HomePageState extends State<HomePage> {
               child: TextFormField(
                maxLines: 1,
                 validator: (value) => value.isEmpty ? "First Name can't be empty" : null,
-             //   onSaved: (value) => _first = value.trim(),
+                onSaved: (value) => _first = value.trim(),
                 decoration: InputDecoration(
                 labelText: "First Name", hasFloatingPlaceholder: true,
               ),
@@ -313,13 +326,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () // => Navigator.pushNamed(context, paymntRoute),
                       {
-                        Navigator.pushNamed(context, paymntRoute);
                         final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('pan.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
                         final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('aadf.png');
                         final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
                         final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('aadb.png');
                         final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
+                        if(image1 != null && image3 != null && image2 != null ){
+                          Navigator.pushNamed(context, paymntRoute);
+                        }else{
+                          _shoeAlert(context);
+                        }
                       },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
