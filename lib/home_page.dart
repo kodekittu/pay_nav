@@ -226,8 +226,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onPressed: () // => Navigator.pushNamed(context, paymntRoute),
                       {
+                        Navigator.pushNamed(context, paymntRoute);
                         final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('img.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
+                        final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('img2.png');
+                        final StorageUploadTask task2 = firebaseStorageRef.putFile(image2);
+                        final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('img3.png');
+                        final StorageUploadTask task3 = firebaseStorageRef.putFile(image3);
                       },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
