@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-//import 'package:flutter/rendering.dart';
 //import 'package:http/http.dart'  as http;
 import 'package:paynav/router.dart';
 
@@ -66,17 +65,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
-            child: TextFormField(
+              child: TextFormField(
+               maxLines: 1,
+                validator: (value) => value.isEmpty ? "First Name can't be empty" : null,
+             //   onSaved: (value) => _first = value.trim(),
                 decoration: InputDecoration(
                 labelText: "First Name", hasFloatingPlaceholder: true,
-                  fillColor: Colors.white,
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 1.5),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1.5),
-                  ),
               ),
             ),
             ),
@@ -111,22 +105,22 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(10.0),
               child: InkWell(
                 child: Container(
-                  height: data.size.width * 0.25,
-                  width: data.size.height * 0.2,
+                  height: data.size.width * 0.28,
+                  width: data.size.height * 0.23,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Colors.grey, width: 2)
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Center(child:
-                    image1 == null
-                        ? Column(children: <Widget>[
+                  child: Center(child:
+                        image1 == null
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                        child: Column(children: <Widget>[
                         Icon(Icons.add_circle_outline),
                         Text('UPLOAD PHOTO')
-                      ],
-                    ) : enableUpload(),),
+                    ],
                   ),
+                      ) : enableUpload(),),
                 ),
                 onTap: getImage,
               ),
@@ -149,13 +143,13 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Column(
                       children: <Widget>[
                         InkWell(
                           child: Container(
-                            height: data.size.width * 0.25,
-                            width: data.size.height * 0.2,
+                            height: data.size.width * 0.28,
+                            width: data.size.height * 0.23,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: Colors.grey, width: 2)
@@ -179,15 +173,14 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
-                  SizedBox(width: data.size.width * 0.02,),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: <Widget>[
                         InkWell(
                           child: Container(
-                            height: data.size.width * 0.25,
-                            width: data.size.height * 0.2,
+                            height: data.size.width * 0.28,
+                            width: data.size.height * 0.23,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(color: Colors.grey, width: 2)
@@ -230,9 +223,9 @@ class _HomePageState extends State<HomePage> {
                         final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('img.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
                         final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('img2.png');
-                        final StorageUploadTask task2 = firebaseStorageRef.putFile(image2);
+                        final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
                         final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('img3.png');
-                        final StorageUploadTask task3 = firebaseStorageRef.putFile(image3);
+                        final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
                       },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0)
@@ -259,5 +252,6 @@ class _HomePageState extends State<HomePage> {
     return Container(child: Image.file(image3),
     );
   }
+  
 }
 
