@@ -220,11 +220,11 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () // => Navigator.pushNamed(context, paymntRoute),
                       {
                         Navigator.pushNamed(context, paymntRoute);
-                        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('img.png');
+                        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('pan.png');
                         final StorageUploadTask task = firebaseStorageRef.putFile(image1);
-                        final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('img2.png');
+                        final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('aadf.png');
                         final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
-                        final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('img3.png');
+                        final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('aadb.png');
                         final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
                       },
                     shape: RoundedRectangleBorder(
@@ -252,6 +252,6 @@ class _HomePageState extends State<HomePage> {
     return Container(child: Image.file(image3),
     );
   }
-  
+
 }
 
