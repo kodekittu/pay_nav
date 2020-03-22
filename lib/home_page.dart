@@ -2,11 +2,11 @@ import 'dart:io';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart'  as http;
-import 'package:paynav/router.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
+import 'package:paynav/router.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,28 +19,116 @@ class _HomePageState extends State<HomePage> {
   File image2;
   File image3;
 
-  Future getImage() async {
+  Future <void> _showChoiceDialog1 (BuildContext context) {
+    return showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Make a Choice!"),
+        content: SingleChildScrollView(
+          child: ListBody(children: <Widget>[
+            GestureDetector(
+              child: Text ("Gallery"),
+              onTap: _getImage1,
+            ),
+            Padding(padding: EdgeInsets.all(6)),
+            GestureDetector(
+              child: Text ("Camara"),
+              onTap: _openCamara1,
+            )
+          ],),
+        ),
+      );
+    });
+  }
+  Future <void> _showChoiceDialog2 (BuildContext context) {
+    return showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Make a Choice!"),
+        content: SingleChildScrollView(
+          child: ListBody(children: <Widget>[
+            GestureDetector(
+              child: Text ("Gallery"),
+              onTap: _getImage2,
+            ),
+            Padding(padding: EdgeInsets.all(6)),
+            GestureDetector(
+              child: Text ("Camara"),
+              onTap: _openCamara2,
+            )
+          ],),
+        ),
+      );
+    });
+  }
+  Future <void> _showChoiceDialog3 (BuildContext context) {
+    return showDialog(context: context, builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Make a Choice!"),
+        content: SingleChildScrollView(
+          child: ListBody(children: <Widget>[
+            GestureDetector(
+              child: Text ("Gallery"),
+              onTap: _getImage3,
+            ),
+            Padding(padding: EdgeInsets.all(6)),
+            GestureDetector(
+              child: Text ("Camara"),
+              onTap: _openCamara3,
+            )
+          ],),
+        ),
+      );
+    });
+  }
+
+  Future _getImage1() async {
     var tempImage1 = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       image1 = tempImage1;
     });
+    Navigator.of(context).pop();
+  }
+  Future _openCamara1() async {
+    var tempImage1 = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image1 = tempImage1;
+    });
+    Navigator.of(context).pop();
   }
 
-  Future getImage2() async {
+  Future _getImage2() async {
     var tempImage2 = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       image2 = tempImage2;
     });
+    Navigator.of(context).pop();
+  }
+  Future _openCamara2() async {
+    var tempImage2 = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image2 = tempImage2;
+    });
+    Navigator.of(context).pop();
   }
 
-  Future getImage3() async {
+  Future _getImage3() async {
     var tempImage3 = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       image3 = tempImage3;
     });
+    Navigator.of(context).pop();
+  }
+  Future _openCamara3() async {
+    var tempImage3 = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    setState(() {
+      image3 = tempImage3;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
@@ -122,7 +210,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                       ) : enableUpload(),),
                 ),
-                onTap: getImage,
+                onTap: (){
+                  _showChoiceDialog1(context);
+                },
               ),
             ),
             Padding(
@@ -166,7 +256,9 @@ class _HomePageState extends State<HomePage> {
                                   : enableUpload2(),),
                             ),
                           ),
-                          onTap: getImage2,
+                          onTap: (){
+                            _showChoiceDialog2(context);
+                          },
                         ),
                         SizedBox(height: data.size.height *0.01,),
                         Text('FRONT'),
@@ -195,7 +287,9 @@ class _HomePageState extends State<HomePage> {
                               ) : enableUpload3(),),
                             ),
                           ),
-                          onTap: getImage3,
+                          onTap: (){
+                            _showChoiceDialog3(context);
+                          },
                         ),
                         SizedBox(height: data.size.height *0.01,),
                         Text('BACK'),
