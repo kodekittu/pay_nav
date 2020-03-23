@@ -276,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                           InkWell(
                             child: Container(
                               height: data.size.width * 0.28,
-                              width: data.size.height * 0.23,
+                              width: data.size.height * 0.21,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey, width: 2)
@@ -309,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                           InkWell(
                             child: Container(
                               height: data.size.width * 0.28,
-                              width: data.size.height * 0.23,
+                              width: data.size.height * 0.21,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey, width: 2)
