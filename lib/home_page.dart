@@ -373,15 +373,15 @@ class _HomePageState extends State<HomePage> {
                             }
                             //await DatabaseService(result).updateUserData('Ramesh', 'Arora', 'Bittu','1234','12341234');
                             final StorageReference firebaseStorageRef = FirebaseStorage
-                                .instance.ref().child('pan.png');
+                                .instance.ref().child(firstNameController.text + ' PAN.png');
                             final StorageUploadTask task = firebaseStorageRef
                                 .putFile(image1);
                             final StorageReference firebaseStorageRef2 = FirebaseStorage
-                                .instance.ref().child('aadf.png');
+                                .instance.ref().child(firstNameController.text + ' ADF.png');
                             final StorageUploadTask task2 = firebaseStorageRef2
                                 .putFile(image2);
                             final StorageReference firebaseStorageRef3 = FirebaseStorage
-                                .instance.ref().child('aadb.png');
+                                .instance.ref().child(firstNameController.text + ' ADB.png');
                             final StorageUploadTask task3 = firebaseStorageRef3
                                 .putFile(image3);
                           }
