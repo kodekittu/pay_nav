@@ -8,6 +8,7 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData data = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('List of ....'),
@@ -21,6 +22,10 @@ class _ListPageState extends State<ListPage> {
           return Card(
             color: Colors.white12,
             elevation: 10,
+            child: Container(
+              height: data.size.height * 0.042,
+              margin: EdgeInsets.only(left: 10),
+            ),
           );
         }
 

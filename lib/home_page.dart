@@ -16,16 +16,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final _formkey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
-
   File image1;
   File image2;
   File image3;
-  String _first;
-  String _middle;
-  String _sur;
-  int _panNo;
-  int _aadNo;
+  final firstNameController =TextEditingController();
+  final middleNameController =TextEditingController();
+  final surNameController =TextEditingController();
+  final panCardNumberController =TextEditingController();
+  final adharCardNumberController =TextEditingController();
 
   Future <void> _shoeAlert (BuildContext context){
     return showDialog(context: context, builder: (BuildContext context) {
@@ -160,206 +160,241 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('PayNav'),
       ),
-      body: Container(
-        color: Colors.white10,
-        padding: EdgeInsets.all(6),
-        child: SingleChildScrollView(padding: EdgeInsets.all(4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            Center(child: Text('PayNav ASSIGNMENT',style: TextStyle(fontWeight: FontWeight.bold),),),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 25),
-              child: Container(alignment: Alignment.topLeft,
-                  child: Text('Please enter name as per Pancard',)
-              ),
-            ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
-              child: TextFormField(
-               maxLines: 1,
-                validator: (value) => value.isEmpty ? "First Name can't be empty" : null,
-                onSaved: (value) => _first = value.trim(),
-                decoration: InputDecoration(
-                labelText: "First Name", hasFloatingPlaceholder: true,
-              ),
-            ),
-            ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: "Middle Name", hasFloatingPlaceholder: true,
+      body: Form(
+        key: _formkey,
+        child: Container(
+          color: Colors.white10,
+          padding: EdgeInsets.all(6),
+          child: SingleChildScrollView(padding: EdgeInsets.all(4),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              Center(child: Text('PayNav ASSIGNMENT',style: TextStyle(fontWeight: FontWeight.bold),),),
+              Padding(
+                padding: const EdgeInsets.only(top: 15, left: 25),
+                child: Container(alignment: Alignment.topLeft,
+                    child: Text('Please enter name as per Pancard',)
                 ),
               ),
-            ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: "Sur Name", hasFloatingPlaceholder: true,
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
+                child: TextFormField(
+                 maxLines: 1,
+                  validator: (value) => value.isEmpty ? "First Name can't be empty" : null,
+              //    onSaved: (value) => _firstName = value.trim(),
+                  controller: firstNameController,
+                  decoration: InputDecoration(
+                  labelText: "First Name", hasFloatingPlaceholder: true,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 25),
-              child: Container(alignment: Alignment.topLeft,
-                  child: Text('Pan Card (Required)')
               ),
-            ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Enter Pan Number'
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: InkWell(
-                child: Container(
-                  height: data.size.width * 0.28,
-                  width: data.size.height * 0.23,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey, width: 2)
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
+                child: TextFormField(
+                  controller: middleNameController,
+                  decoration: InputDecoration(
+                    labelText: "Middle Name", hasFloatingPlaceholder: true,
                   ),
-                  child: Center(child:
-                        image1 == null
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                        child: Column(children: <Widget>[
-                        Icon(Icons.add_circle_outline),
-                        Text('UPLOAD PHOTO')
-                    ],
+                ),
+              ),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 4),
+                child: TextFormField(
+                  controller: surNameController,
+                  decoration: InputDecoration(
+                    labelText: "Sur Name", hasFloatingPlaceholder: true,
                   ),
-                      ) : enableUpload(),),
-                ),
-                onTap: (){
-                  _showChoiceDialog1(context);
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, left: 25),
-               child: Container(alignment: Alignment.topLeft,
-                  child: Text('Photo Id Card (Required)')
-              ),
-            ),
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: 'Enter Aadhar Number'
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          child: Container(
-                            height: data.size.width * 0.28,
-                            width: data.size.height * 0.23,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.grey, width: 2)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: Center(child: image2 == null ?
-                              Column(
-                                children: <Widget>[
-                                  Icon(Icons.add_circle_outline),
-                                  Text('UPLOAD PHOTO')
-                                ],
-                              )
-                                  : enableUpload2(),),
-                            ),
-                          ),
-                          onTap: (){
-                            _showChoiceDialog2(context);
-                          },
-                        ),
-                        SizedBox(height: data.size.height *0.01,),
-                        Text('FRONT'),
+              Padding(
+                padding: const EdgeInsets.only(top: 15, left: 25),
+                child: Container(alignment: Alignment.topLeft,
+                    child: Text('Pan Card (Required)')
+                ),
+              ),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
+                child: TextFormField(
+                  validator: (value) =>
+                  value.length != 10
+                      ? "Enter valid Pan Number"
+                      : null,
+                  controller: panCardNumberController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Pan Number',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                  child: Container(
+                    height: data.size.width * 0.28,
+                    width: data.size.height * 0.23,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey, width: 2)
+                    ),
+                    child: Center(child:
+                          image1 == null
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                          child: Column(children: <Widget>[
+                          Icon(Icons.add_circle_outline),
+                          Text('UPLOAD PHOTO')
                       ],
                     ),
+                        ) : enableUpload(),),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: <Widget>[
-                        InkWell(
-                          child: Container(
-                            height: data.size.width * 0.28,
-                            width: data.size.height * 0.23,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.grey, width: 2)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: Center(child: image3 == null ? Column(
-                                children: <Widget>[
-                                  Icon(Icons.add_circle_outline),
-                                  Text('UPLOAD PHOTO')
-                                ],
-                              ) : enableUpload3(),),
-                            ),
-                          ),
-                          onTap: (){
-                            _showChoiceDialog3(context);
-                          },
-                        ),
-                        SizedBox(height: data.size.height *0.01,),
-                        Text('BACK'),
-                      ],
-                    ),
-                  ),
-                ],
+                  onTap: (){
+                    _showChoiceDialog1(context);
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: SizedBox(
-                  width: data.size.width * 0.55,
-                  child: RaisedButton(
-                    padding: const EdgeInsets.all(8.0),
-                    color: Colors.purpleAccent,
-                    splashColor: Colors.amber,
-                    child: Text("SUBMIT".toUpperCase(),
-                      style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () // => Navigator.pushNamed(context, paymntRoute),
-                      {
-                        final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('pan.png');
-                        final StorageUploadTask task = firebaseStorageRef.putFile(image1);
-                        final StorageReference firebaseStorageRef2 = FirebaseStorage.instance.ref().child('aadf.png');
-                        final StorageUploadTask task2 = firebaseStorageRef2.putFile(image2);
-                        final StorageReference firebaseStorageRef3 = FirebaseStorage.instance.ref().child('aadb.png');
-                        final StorageUploadTask task3 = firebaseStorageRef3.putFile(image3);
-                        dynamic result = _auth.signInAnon();
-
-                        print(result);
-                        if(result == null)
-                          print("can't sign in");
-                        if(image1 != null && image3 != null && image2 != null ){
-                          Navigator.pushNamed(context, paymntRoute);
-                        }else{
-                          _shoeAlert(context);
-                        }
-                      },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15, left: 25),
+                 child: Container(alignment: Alignment.topLeft,
+                    child: Text('Photo Id Card (Required)')
+                ),
+              ),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 25,),
+                child: TextFormField(
+                  validator: (value) =>
+                  value.length != 12
+                      ? "Enter valid Pan Number"
+                      : null,
+                  controller: adharCardNumberController,
+                  decoration: InputDecoration(
+                      hintText: 'Enter Aadhar Number',
                   ),
                 ),
               ),
-            )
-          ],),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Column(
+                        children: <Widget>[
+                          InkWell(
+                            child: Container(
+                              height: data.size.width * 0.28,
+                              width: data.size.height * 0.23,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey, width: 2)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: Center(child: image2 == null ?
+                                Column(
+                                  children: <Widget>[
+                                    Icon(Icons.add_circle_outline),
+                                    Text('UPLOAD PHOTO')
+                                  ],
+                                )
+                                    : enableUpload2(),),
+                              ),
+                            ),
+                            onTap: (){
+                              _showChoiceDialog2(context);
+                            },
+                          ),
+                          SizedBox(height: data.size.height *0.01,),
+                          Text('FRONT'),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          InkWell(
+                            child: Container(
+                              height: data.size.width * 0.28,
+                              width: data.size.height * 0.23,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey, width: 2)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20.0),
+                                child: Center(child: image3 == null ? Column(
+                                  children: <Widget>[
+                                    Icon(Icons.add_circle_outline),
+                                    Text('UPLOAD PHOTO')
+                                  ],
+                                ) : enableUpload3(),),
+                              ),
+                            ),
+                            onTap: (){
+                              _showChoiceDialog3(context);
+                            },
+                          ),
+                          SizedBox(height: data.size.height *0.01,),
+                          Text('BACK'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: SizedBox(
+                    width: data.size.width * 0.55,
+                    child: RaisedButton(
+                      padding: const EdgeInsets.all(8.0),
+                      color: Colors.purpleAccent,
+                      splashColor: Colors.amber,
+                      child: Text("SUBMIT".toUpperCase(),
+                        style: TextStyle(fontSize: 21,color: Colors.white,fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () // => Navigator.pushNamed(context, paymntRoute),
+                        async {
+                          if(_formkey.currentState.validate())
+                          {
+                            if (image1 != null && image3 != null &&
+                                image2 != null) {
+                              Navigator.pushNamed(context, paymntRoute);
+                            } else {
+                              _shoeAlert(context);
+                            }
+                            dynamic result = await _auth.signInAnon(
+                              firstNameController.text,
+                              middleNameController.text,
+                              surNameController.text,
+                              panCardNumberController.text,
+                              adharCardNumberController.text,
+                            );
+                            if (result == null) {
+                              print('Cant sign in');
+                            }
+                            else {
+                              print('signed in');
+                            }
+                            //await DatabaseService(result).updateUserData('Ramesh', 'Arora', 'Bittu','1234','12341234');
+                            final StorageReference firebaseStorageRef = FirebaseStorage
+                                .instance.ref().child('pan.png');
+                            final StorageUploadTask task = firebaseStorageRef
+                                .putFile(image1);
+                            final StorageReference firebaseStorageRef2 = FirebaseStorage
+                                .instance.ref().child('aadf.png');
+                            final StorageUploadTask task2 = firebaseStorageRef2
+                                .putFile(image2);
+                            final StorageReference firebaseStorageRef3 = FirebaseStorage
+                                .instance.ref().child('aadb.png');
+                            final StorageUploadTask task3 = firebaseStorageRef3
+                                .putFile(image3);
+                          }
+                        },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],),
+          ),
         ),
       ),
     );
